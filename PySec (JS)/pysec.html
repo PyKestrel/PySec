@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> PySec </title>
+    <link rel="stylesheet" href="/resources/css/main.css">
+    <script src="/resources/js/main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/rabbit.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/rabbit-legacy.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/rc4.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/ripemd160.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha1.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha3.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha224.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha256.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha384.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha512.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/tripledes.js"> </script>
+</head>
+<body class="body">
+
+<div class="height"> 
+    <h1 class="title"> PySec </h1>
+    <h2 class="title"> A Simple Way To Test Out Hashes & Encryption </h2>
+
+    <div class="flex">
+
+    <div class="card">
+        <br>
+        <img src="/images/encryption2.png">
+        <p> Designed To Test Out The Different Hashes and Encryption Algorithms Availiable Through The CryptoJS Library. <br></p>
+        <br>
+    </div>
+
+    <div class="card">
+        <br>
+        <img src="/images/lock.png">
+        <p> Start Testing With The Button Below. <br></p>
+        <button class="button" onclick="overlayOn()"> Launch </button>
+        <br>
+    </div>
+    </div>
+
+
+    <div id="overlay" class="overlay" onclick="overlayOff()">
+    </div>
+    <div id="overlaytwo" class="box">     
+        <form onsubmit="return false" class="form">
+            <label for="input"> Message </label> <br>
+            <textarea id="input"> </textarea><br>
+            <label for="password" id="passlabel" style="display: none;"> Password </label><br>
+            <input type="password" id="password" style="display: none;" placeholder="Dont Use Real Password"><br> 
+            <label for="input"> Choose Algorithm </label><br>
+            <select required id="algorithm" onchange="change()">
+                <optgroup label="Hash Algorithms">
+                <option value="MD5"> MD5 </option>
+                <option value="SHA1"> SHA-1 </option>
+                <option value="SHA256"> SHA-256 </option>
+                <option value="SHA512"> SHA-512 </option>
+                <option value="SHA3"> SHA-3 </option>
+                <option value="RIPEMD160"> RIPEMD-160 </option>
+                </optgroup>
+                <optgroup label="Encryption Algroithms">
+                <option value="AES"> AES </option>
+                <option value="DES"> DES </option>
+                <option value="TripleDES"> Triple DES </option>
+                <option value="Rabbit"> Rabbit </option>
+                <option value="RC4"> RC4 </option>
+                <option value="RC4Drop"> RC4Drop </option>
+                </optgroup>
+            </select>
+            <br>
+            <label for="output"> Output: </label> <br>
+            <textarea id="output" style="width: 90%;" readonly> </textarea><br>
+            <button class="button" style="background-color: #A525FB; border-radius: 10px;" onclick="encrypt()"> Run </button>
+            <button class="button" id="decrypt" style="background-color: #A525FB; border-radius: 10px; display: none;" onclick="decrypt()"> Decrypt </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function encrypt(){
+    var message = document.getElementById("input").value;
+    var algorithm = document.getElementById("algorithm").value;
+    var output = document.getElementById("output");
+    var password = document.getElementById("password");
+
+    switch(algorithm){
+        case "MD5":
+            var hash = CryptoJS.MD5(message);
+            output.value = hash.toString(CryptoJS.enc.Hex);
+            break;
+        case "SHA1":
+            var hash2 = CryptoJS.SHA1(message);
+            output.value = hash2.toString(CryptoJS.enc.Hex);
+            break;
+        case "SHA256":
+            var hash3 = CryptoJS.SHA256(message);
+            output.value = hash3.toString(CryptoJS.enc.Hex);
+            break;
+        case "SHA512":
+            var hash4 = CryptoJS.SHA512(message);
+            output.value = hash4.toString(CryptoJS.enc.Hex);
+            break;
+        case "SHA3":
+            var hash5 = CryptoJS.SHA3(message);
+            output.value = hash5.toString(CryptoJS.enc.Hex);
+            break;
+        case "RIPEMD160":
+            var hash6 = CryptoJS.RIPEMD160(message);
+            output.value = hash6.toString(CryptoJS.enc.Hex);
+            break;
+        case "AES":
+            var encrypted = CryptoJS.AES.encrypt(message, password);
+            break;
+        case "DES":
+            break;
+        case "TripleDES":
+            break;
+        case "Rabbit":
+            break;
+        case "RC4":
+            break;
+        case "RC4Drop":
+            break;
+    }
+}
+
+</script>
+</body>
+</html>
